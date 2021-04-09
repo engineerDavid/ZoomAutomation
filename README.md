@@ -1,5 +1,5 @@
 # ZoomAutomation
-Used to use the terminal to load your next class zoom link in browser
+Used to load load your next class zoom link in browser and not struggle to find Zoom link.
 
 ## First step
 *You will need to change the classes dictonary to fit your schedule.
