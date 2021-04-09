@@ -14,6 +14,6 @@ ex: 16:30 not 4:30 PM
 *4 = Friday
 ## Finally
 * Add in your class ZoomUrl with class accees code
-* ex: https://us02web.zoom.us/j/{access code}
+* ex: "https://us02web.zoom.us/j/{access code}"
 * run your file in the terminal
 * enjoy the beauty of automation
