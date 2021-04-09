@@ -2,8 +2,8 @@
 Used to load your next class zoom link in browser and not struggle to find Zoom link.
 
 ## First step
-*You will need to change the classes dictonary to fit your schedule.
-*Make sure you have your time in milatary time format
+* You will need to change the classes dictonary to fit your schedule.
+* Make sure you have your time in milatary time format
 ex: 16:30 not 4:30 PM
 ## Second step
 *Add in the Days of the week that your class happens on: 
