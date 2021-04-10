@@ -1,5 +1,5 @@
 # ZoomAutomation
-Used to load your next class zoom link in browser and not struggle to find Zoom link.
+Used to load your next class zoom link in browser and not struggle to find Zoom link. It is best if used before your class starts 1-5 mins before it starts.
 
 ## First step
 * You will need to change the classes dictonary to fit your schedule.
