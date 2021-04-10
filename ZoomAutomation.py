@@ -46,45 +46,60 @@ ZoomClasss = {
 }
 
 
-#used to check what day it is of the week 0-6
-#monday = 0
-weekday = datetime.today().weekday()
-t = time.localtime()
-#gets the current time at your location
-current_time = time.strftime("%H:%M", t)
-#used to only have hours and min format
-FMT = '%H:%M'
-#23 hours is used since you dont usualyy open zoom 23 hours before class
-closestClass = "23:00:00"
 
-for c in ZoomClasss.values():
-    #used to go through every class in dic
-    for clas in c:
-        #goes through the days of the week your class is on
-        for day in clas["Day of week"]:
+#gets your current time and day of week
+def GetCurrentTimeandWeekday():
+    Time = time.localtime()
+    #gets the current time at your location
+    #used to only have hours and min format
+    Format = '%H:%M'
+    current_time = time.strftime(Format, Time)   
+    #used to check what day it is of the week 0-6
+    #monday = 0
+    weekday = datetime.today().weekday()
+    return current_time, weekday
+
+
+#resturns the zoom url of the classs happening soon
+def ClassHappeningSoonest(current_time, weekday):
+    ClassTimes = []
+    #23 hours is used since you dont usualyy open zoom 23 hours before class
+    CLOSEST_CLASS = "23:00:00"
+    FMT = '%H:%M'
+    for classes in dict_zoom_classes["classes"]:
+        for day in classes["Day of week"]:
             #check to see what classes you have today
             if weekday == day:
                 #gets the time of todays classes
-                ClassTime = clas["Time"]
+                ClassTime = classes["Time"]
                 #checks to see how much time you hvae left before your classes for today start
                 tdelta = datetime.strptime(ClassTime, FMT) - datetime.strptime(current_time, FMT)
                 #makes sure your next class is not a day away
+                
                 if str(tdelta).find("day") == -1:
                     #parser helps compare the times
                     tdelta = parser.parse(str(tdelta))
-                    closestClass = parser.parse(str(closestClass))
                     #used to see which class is happening sooner
-                    if tdelta < closestClass:
-                        closestClass = tdelta
+                    CLOSEST_CLASS = parser.parse(str(CLOSEST_CLASS))
+                    ClassTimes.append(tdelta)
+                    if tdelta < CLOSEST_CLASS:
+                        CLOSEST_CLASS = tdelta
                         #keeps track of the url of the class with closer time
-                        ZoomUrl = clas["ZoomUrl"]
+                        ZoomUrl = classes["ZoomUrl"]
                 else:
                     break
+    return ZoomUrl
 
+#Used to get the zoom url of the class happening the soonest
+def GetZoomUrl():
+    CURRENT_TIME, WEEKDAY = GetCurrentTimeandWeekday()
+    ZoomUrl = ClassHappeningSoonest(CURRENT_TIME, WEEKDAY)
+    return ZoomUrl
 
 
 #Used to open up the url in the chrome browser
 #if you brefer a diffrent browser just change the 'chrome' in code bellow to desired code
+ZoomUrl = GetZoomUrl()
 webbrowser.register('chrome',
 	None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
